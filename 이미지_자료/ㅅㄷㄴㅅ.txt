@@ -1,0 +1,63 @@
+ymc.howtomalplay(p.ybp.p1arr, howmanymoves());
+
+
+int i = 100;
+		if (p.ybp.p1arr.equals(player))
+			i = 0;
+		else if (p.ybp.p2arr.equals(player))
+			i = 1;
+		else
+			System.out.println("1도 2도 아님 -_-");
+		int px,py;
+
+		px = (int) (player[malcount[i]]).getX(); // 1p2p i와 player로 구분
+		py = (int) player[malcount[i]].getY();
+
+		if (whereyourmal == 0) {
+			whereyourmal += move;
+		}
+
+		else if ((whereyourmal >= 1 && whereyourmal < 5)
+				|| (whereyourmal >= 6 && whereyourmal < 10)
+				|| (whereyourmal >= 11 && whereyourmal < 19)) {
+			whereyourmal += move;
+			if (whereyourmal + move >= 19) {
+				exit(i);
+				// 낫어
+			} else if (whereyourmal >= 20 && whereyourmal == 24) { // 대각선
+				whereyourmal += move;
+				if (whereyourmal + move >= 24) {// 대각선에서 15로 넘어갈떄
+					whereyourmal = whereyourmal - 9 + move;
+				}
+			} else if (whereyourmal >= 25 && whereyourmal < 28) { // 대각선
+				whereyourmal += move;
+			} else if (whereyourmal == 5) {// 모의 위치일때
+				whereyourmal = 20 + move - 1;
+				if (move >= 6) {
+					whereyourmal += 15 + move - 1;
+				}
+			} else if (whereyourmal == 10) {// 뒷모
+				whereyourmal = 25 + move - 1;
+			} else if (whereyourmal == 22) {// 방여
+				whereyourmal = 27 + move - 1;
+			} else if (whereyourmal == 19 || whereyourmal == 28) {
+				if (move == 1) {
+					whereyourmal = 0;// 참멕여
+				} else {// 나야되
+					int mal = malcount[i] + 1;				
+					p.pp.textArea1.append(mal + "번째 말이 났음");
+					p.ybp.p1arr[malcount[i]].setFrame(300 + (30 * malcount[i]), 200,
+									20, 20);
+					malcount[i]++;
+
+
+				}
+			}
+
+			player[malcount[i]].setFrame(MalBoard[whereyourmal].xpoint,
+					MalBoard[whereyourmal].ypoint, 20, 20);
+			p.ybp.repaint();
+		}
+
+
+
